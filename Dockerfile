@@ -4,7 +4,7 @@ COPY grafana-collector-config.yaml /etc/otelcol-contrib/config.yaml
 
 # ENTRYPOINT ["/otelcol-contrib"]
 
-EXPOSE map[4317/tcp:{} 4318/tcp:{} 55678/tcp:{} 55679/tcp:{}]
+EXPOSE 4317 4318 55678 55679 1888 8888
 
 CMD ["--config", "/etc/otelcol-contrib/config.yaml"]
 
