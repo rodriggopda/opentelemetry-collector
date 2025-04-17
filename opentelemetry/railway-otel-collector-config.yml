@@ -1,0 +1,59 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+exporters:
+  debug:
+    verbosity: detailed
+
+  prometheus:
+    endpoint: "${env:RAILWAY_PROMETHEUS_ENDPOINT}"
+    const_labels:
+      monitor: railway-prometheus
+
+  otlphttp/loki:
+    endpoint: "${env:RAILWAY_LOKI_ENDPOINT}"
+
+  otlp/tempo:
+    endpoint: "${env:RAILWAY_TEMPO_ENDPOINT}"
+    tls:
+      insecure: true
+
+  zipkin:
+    endpoint: "${env:RAILWAY_ZINPKIN_ENDPOINT}"
+    format: proto
+
+  otlp/jaeger:
+    endpoint: "${env:RAILWAY_JAEGER_ENDPOINT}"
+    tls:
+      insecure: true
+
+processors:
+  batch:
+
+extensions:
+  health_check:
+  pprof:
+    endpoint: :1888
+  zpages:
+    endpoint: :55679
+
+service:
+  extensions: [pprof, zpages, health_check]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlphttp/loki, zipkin, otlp/jaeger, otlp/tempo, debug]
+    metrics:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlphttp/loki, prometheus, debug]
+    logs:
+      receivers: otlp
+      processors: [batch]
+      exporters: [otlphttp/loki]
