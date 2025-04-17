@@ -1,5 +1,7 @@
 
-# Variables
+
+
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template/r-4cXG?referralCode=WbvmYB)
 
 # Grafana
 
@@ -33,4 +35,14 @@ RAILWAY_LOKI_ENDPOINT="http://${{Loki.RAILWAY_PRIVATE_DOMAIN}}:3100/otlp"
 RAILWAY_TEMPO_ENDPOINT="${{Tempo.RAILWAY_PRIVATE_DOMAIN}}:4318"
 RAILWAY_ZINPKIN_ENDPOINT="http://${{Zipkin.RAILWAY_PRIVATE_DOMAIN}}:9411/api/v2/spans"
 RAILWAY_JAEGER_ENDPOINT="${{Jaeger.RAILWAY_PRIVATE_DOMAIN}}:4317"
+```
+
+# Integrate with the application layer
+
+Set up these OTEL_* environment variables
+```
+OTEL_EXPORTER_OTLP_ENDPOINT="http://${{Otel-Collector.RAILWAY_PRIVATE_DOMAIN}}:4318"
+OTEL_TRACES_EXPORTER="otlp,console"
+OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
+OTEL_RESOURCE_ATTRIBUTES="deployment.environment=jasper-demo,service.namespace=jasper,service.version=1.0.0"
 ```
