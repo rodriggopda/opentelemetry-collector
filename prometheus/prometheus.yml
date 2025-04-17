@@ -24,7 +24,7 @@ scrape_configs:
     static_configs:
       - targets: ['Loki:3100']
 
-  # - job_name: 'jaeger'
-  #   scrape_interval: 5s
-  #   static_configs:
-  #     - targets: ['Jaeger:4318']
+  - job_name: 'jaeger'
+    scrape_interval: 5s
+    static_configs:
+      - targets: ['Jaeger:16686']

@@ -11,24 +11,24 @@ exporters:
     verbosity: detailed
 
   prometheus:
-    endpoint: "${env:RAILWAY_PROMETHEUS_ENDPOINT}"
+    endpoint: "${env:RAILWAY_PROMETHEUS_ENDPOINT}" # "0.0.0.0:8889"
     const_labels:
       monitor: railway-prometheus
 
   otlphttp/loki:
-    endpoint: "${env:RAILWAY_LOKI_ENDPOINT}"
+    endpoint: "${env:RAILWAY_LOKI_ENDPOINT}" # http://<loki-addr>:3100/otlp
 
   otlp/tempo:
-    endpoint: "${env:RAILWAY_TEMPO_ENDPOINT}"
+    endpoint: "${env:RAILWAY_TEMPO_ENDPOINT}" # <tempo-addr>:4318
     tls:
       insecure: true
 
   zipkin:
-    endpoint: "${env:RAILWAY_ZINPKIN_ENDPOINT}"
+    endpoint: "${env:RAILWAY_ZINPKIN_ENDPOINT}" # http://zipkin.railway.internal:9411/api/v2/spans
     format: proto
 
   otlp/jaeger:
-    endpoint: "${env:RAILWAY_JAEGER_ENDPOINT}"
+    endpoint: "${env:RAILWAY_JAEGER_ENDPOINT}" # jaeger.railway.internal:4317
     tls:
       insecure: true
 

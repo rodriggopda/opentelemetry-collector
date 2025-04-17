@@ -56,3 +56,16 @@ datasources:
     basicAuthUser:
     withCredentials:
     isDefault: false
+  - name: Zipkin
+    type: zipkin
+    access: proxy
+    orgId: 1
+    uid: grafana_zipkin
+    url: ${RAILWAY_ZIPKIN_URL}
+    user:
+    database:
+    basicAuth: false
+    basicAuthUser:
+    withCredentials:
+    isDefault: false
+    
