@@ -1,7 +1,6 @@
 
 
-
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template/r-4cXG?referralCode=WbvmYB)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/template/faP63Y?referralCode=HlH-QK)
 
 # Grafana
 
