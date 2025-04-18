@@ -1,4 +1,4 @@
-FROM grafana/grafana:11.5.2
+FROM grafana/grafana-oss:11.6.0
 
 # copy the datasources and dashboards
 COPY grafana-datasources.yml /etc/grafana/provisioning/datasources/datasources.yml
