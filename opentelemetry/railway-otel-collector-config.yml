@@ -54,6 +54,6 @@ service:
       processors: [batch]
       exporters: [otlphttp/loki, prometheus, debug]
     logs:
-      receivers: otlp
+      receivers: [otlp]
       processors: [batch]
       exporters: [otlphttp/loki]
