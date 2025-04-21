@@ -48,11 +48,11 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlphttp/loki, zipkin, otlp/jaeger, otlp/tempo, debug]
+      exporters: [zipkin, otlp/jaeger, otlp/tempo, debug]
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlphttp/loki, prometheusremotewrite, debug]
+      exporters: [prometheusremotewrite, debug]
     logs:
       receivers: [otlp]
       processors: [batch]
