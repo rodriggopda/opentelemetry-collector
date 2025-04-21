@@ -10,10 +10,10 @@ exporters:
   debug:
     verbosity: detailed
 
-  prometheus:
-    endpoint: "${env:RAILWAY_PROMETHEUS_ENDPOINT}" # "0.0.0.0:8889"
-    const_labels:
-      monitor: railway-prometheus
+  prometheusremotewrite:
+    endpoint: "${env:RAILWAY_PROMETHEUS_ENDPOINT}"
+    tls:
+      insecure: true
 
   otlphttp/loki:
     endpoint: "${env:RAILWAY_LOKI_ENDPOINT}" # http://<loki-addr>:3100/otlp
@@ -52,7 +52,7 @@ service:
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [otlphttp/loki, prometheus, debug]
+      exporters: [otlphttp/loki, prometheusremotewrite, debug]
     logs:
       receivers: [otlp]
       processors: [batch]
