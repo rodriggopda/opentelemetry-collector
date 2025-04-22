@@ -7,13 +7,16 @@ receivers:
         endpoint: 0.0.0.0:4318
 
 exporters:
-  debug:
-    verbosity: detailed
+  # debug:
+  #   verbosity: detailed
 
   prometheusremotewrite:
-    endpoint: "${env:RAILWAY_PROMETHEUS_ENDPOINT}"
+    endpoint: "${env:RAILWAY_PROMETHEUS_ENDPOINT}" # prometheus.railway.internal:9090/api/v1/write
     tls:
       insecure: true
+
+  prometheus:
+    endpoint: "0.0.0.0:8888"
 
   otlphttp/loki:
     endpoint: "${env:RAILWAY_LOKI_ENDPOINT}" # http://<loki-addr>:3100/otlp
@@ -48,11 +51,13 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [zipkin, otlp/jaeger, otlp/tempo, debug]
+      exporters: [zipkin, otlp/jaeger, otlp/tempo]
+      # exporters: [zipkin, otlp/jaeger, otlp/tempo, debug]
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [prometheusremotewrite, debug]
+      exporters: [prometheus]
+      # exporters: [prometheusremotewrite, prometheus, debug]
     logs:
       receivers: [otlp]
       processors: [batch]
