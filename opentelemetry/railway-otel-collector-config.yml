@@ -10,10 +10,11 @@ exporters:
   # debug:
   #   verbosity: detailed
 
-  prometheusremotewrite:
-    endpoint: "${env:RAILWAY_PROMETHEUS_ENDPOINT}" # prometheus.railway.internal:9090/api/v1/write
-    tls:
-      insecure: true
+  # not working
+  # prometheusremotewrite:
+  #   endpoint: "${env:RAILWAY_PROMETHEUS_ENDPOINT}" # prometheus.railway.internal:9090/api/v1/write
+  #   tls:
+  #     insecure: true
 
   prometheus:
     endpoint: "0.0.0.0:8888"
