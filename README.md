@@ -16,6 +16,7 @@ RAILWAY_PROMETHEUS_URL="http://${{Prometheus.RAILWAY_PRIVATE_DOMAIN}}:9090"
 RAILWAY_TEMPO_URL="http://${{Tempo.RAILWAY_PRIVATE_DOMAIN}}:3200"
 RAILWAY_JAEGER_URL="http://${{Jaeger.RAILWAY_PRIVATE_DOMAIN}}:16686"
 RAILWAY_ZIPKIN_URL="http://${{Zipkin.RAILWAY_PRIVATE_DOMAIN}}:9411"
+PORT="3000"
 ```
 
 Railway template variable functions:
@@ -37,6 +38,19 @@ RAILWAY_RUN_UID="0" # must set this environment variable up when you need to mou
 
 ```
 RAILWAY_RUN_UID="0" # must set this environment variable up when you need to mount volume
+PORT="9090"
+```
+
+# Jaeger
+
+```
+PORT="16686"
+```
+
+# Zipkin
+
+```
+PORT="9411"
 ```
 
 # Tempo
@@ -54,9 +68,12 @@ RAILWAY_LOKI_ENDPOINT="http://${{Loki.RAILWAY_PRIVATE_DOMAIN}}:3100/otlp"
 RAILWAY_TEMPO_ENDPOINT="${{Tempo.RAILWAY_PRIVATE_DOMAIN}}:4317"
 RAILWAY_ZINPKIN_ENDPOINT="http://${{Zipkin.RAILWAY_PRIVATE_DOMAIN}}:9411/api/v2/spans"
 RAILWAY_JAEGER_ENDPOINT="${{Jaeger.RAILWAY_PRIVATE_DOMAIN}}:4317"
+PORT="4318"
 ```
 
 # Integrate with the application layer
+
+## Set up variables if deploy stack with applications in a same environment
 
 1. Set up these OTEL_* environment variables in Raiway - Settings - Shared Variables
 
@@ -69,6 +86,26 @@ OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
 
 ```
 OTEL_EXPORTER_OTLP_ENDPOINT="http://${{Otel-Collector.RAILWAY_PRIVATE_DOMAIN}}:4318"
+OTEL_EXPORTER_OTLP_PROTOCOL="${{shared.OTEL_EXPORTER_OTLP_PROTOCOL}}"
+OTEL_TRACES_EXPORTER="${{shared.OTEL_TRACES_EXPORTER}}"
+OTEL_SERVICE_NAME="${{RAILWAY_SERVICE_NAME}}"
+OTEL_RESOURCE_ATTRIBUTES="service.namespace=${{RAILWAY_PROJECT_NAME}},deployment.environment=${{RAILWAY_ENVIRONMENT_NAME}}"
+```
+
+## Set up variables if deploy stack with applications in a different environment
+
+1. Set up these OTEL_* environment variables in Raiway - Settings - Shared Variables
+
+```
+OTEL_EXPORTER_OTLP_ENDPOINT="https://<otel-collector>.up.railway.app"
+OTEL_TRACES_EXPORTER="otlp,console"
+OTEL_EXPORTER_OTLP_PROTOCOL="http/protobuf"
+```
+
+2. Set up these OTEL_* environment variables in Raiway - <Your Service> - Variables
+
+```
+OTEL_EXPORTER_OTLP_ENDPOINT="${{shared.OTEL_EXPORTER_OTLP_ENDPOINT}}"
 OTEL_EXPORTER_OTLP_PROTOCOL="${{shared.OTEL_EXPORTER_OTLP_PROTOCOL}}"
 OTEL_TRACES_EXPORTER="${{shared.OTEL_TRACES_EXPORTER}}"
 OTEL_SERVICE_NAME="${{RAILWAY_SERVICE_NAME}}"
