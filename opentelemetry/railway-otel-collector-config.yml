@@ -4,6 +4,15 @@ receivers:
       grpc:
         endpoint: 0.0.0.0:4317
       http:
+        cors:
+          allowed_origins:
+            - https://*.slatecast.dev
+            - https://*.slatecast.io
+            - https://*.slatecast.co
+            - https://*.ginkgoo.dev
+          allowed_headers:
+            - *
+          max_age: 7200      
         endpoint: 0.0.0.0:4318
 
 exporters:
