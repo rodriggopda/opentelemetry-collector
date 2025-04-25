@@ -33,8 +33,7 @@ metrics_generator:
   storage:
     path: /var/tempo/generator/wal
     remote_write:
-      - url: "${env:RAILWAY_PROMETHEUS_ENDPOINT}"   # http://Prometheus:9090/api/v1/write
+      - url: "${env:RAILWAY_PROMETHEUS_ENDPOINT}"
         send_exemplars: true
   traces_storage:
     path: /var/tempo/generator/traces
-
