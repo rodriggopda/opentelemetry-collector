@@ -26,11 +26,8 @@ datasources:
     orgId: 1
     uid: grafana_prometheus
     url: ${RAILWAY_PROMETHEUS_URL}
-    user:
-    database:
     basicAuth: false
-    basicAuthUser:
-    withCredentials:
+    editable: false
     isDefault: false
   - name: Tempo
     type: tempo
@@ -38,12 +35,41 @@ datasources:
     orgId: 1
     uid: grafana_tempo
     url: ${RAILWAY_TEMPO_URL}
-    user:
-    database:
     basicAuth: false
-    basicAuthUser:
-    withCredentials:
     isDefault: false
+    # https://github.com/grafana/tempo/blob/main/example/docker-compose/shared/grafana-datasources.yaml
+    # jsonData:
+    #   httpMethod: GET
+    #   serviceMap:
+    #     datasourceUid: grafana_prometheus
+    #   streamingEnabled:
+    #     search: true
+    #
+    #
+    # https://grafana.com/docs/grafana/v11.5/datasources/tempo/configure-tempo-data-source/
+    jsonData:
+      tracesToLogsV2:
+        datasourceUid: 'grafana_loki'
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
+        filterByTraceID: true
+        filterBySpanID: true
+      tracesToMetrics:
+        datasourceUid: 'grafana_prometheus'
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
+      serviceMap:
+        datasourceUid: 'grafana_prometheus'
+      nodeGraph:
+        enabled: true
+      search:
+        hide: false
+      traceQuery:
+        timeShiftEnabled: true
+        spanStartTimeShift: '-1h'
+        spanEndTimeShift: '1h'
+      streamingEnabled:
+        search: true
   - name: Jaeger
     type: jaeger
     access: proxy
