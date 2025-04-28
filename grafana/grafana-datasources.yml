@@ -76,12 +76,27 @@ datasources:
     orgId: 1
     uid: grafana_jaeger
     url: ${RAILWAY_JAEGER_URL}
-    user:
-    database:
     basicAuth: false
     basicAuthUser:
     withCredentials:
     isDefault: false
+    jsonData:
+      tracesToLogsV2:
+        datasourceUid: 'grafana_loki'
+        filterByTraceID: true
+        filterBySpanID: true
+      tracesToMetrics:
+        datasourceUid: 'grafana_prometheus'
+      serviceMap:
+        datasourceUid: 'grafana_prometheus'
+      nodeGraph:
+        enabled: true
+      search:
+        hide: false
+      traceQuery:
+        timeShiftEnabled: true
+      streamingEnabled:
+        search: true
   - name: Zipkin
     type: zipkin
     access: proxy
