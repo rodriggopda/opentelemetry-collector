@@ -50,14 +50,14 @@ datasources:
     jsonData:
       tracesToLogsV2:
         datasourceUid: 'grafana_loki'
-        spanStartTimeShift: '-1h'
-        spanEndTimeShift: '1h'
+        # spanStartTimeShift: '-1h'
+        # spanEndTimeShift: '1h'
         filterByTraceID: true
         filterBySpanID: true
       tracesToMetrics:
         datasourceUid: 'grafana_prometheus'
-        spanStartTimeShift: '-1h'
-        spanEndTimeShift: '1h'
+        # spanStartTimeShift: '-1h'
+        # spanEndTimeShift: '1h'
       serviceMap:
         datasourceUid: 'grafana_prometheus'
       nodeGraph:
@@ -66,8 +66,8 @@ datasources:
         hide: false
       traceQuery:
         timeShiftEnabled: true
-        spanStartTimeShift: '-1h'
-        spanEndTimeShift: '1h'
+        # spanStartTimeShift: '-1h'
+        # spanEndTimeShift: '1h'
       streamingEnabled:
         search: true
   - name: Jaeger
