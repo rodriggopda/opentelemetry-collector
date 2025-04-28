@@ -37,52 +37,10 @@ datasources:
     url: ${RAILWAY_TEMPO_URL}
     basicAuth: false
     isDefault: false
-    # https://github.com/grafana/tempo/blob/main/example/docker-compose/shared/grafana-datasources.yaml
-    # jsonData:
-    #   httpMethod: GET
-    #   serviceMap:
-    #     datasourceUid: grafana_prometheus
-    #   streamingEnabled:
-    #     search: true
-    #
-    #
     # https://grafana.com/docs/grafana/v11.5/datasources/tempo/configure-tempo-data-source/
     jsonData:
       tracesToLogsV2:
         datasourceUid: 'grafana_loki'
-        # spanStartTimeShift: '-1h'
-        # spanEndTimeShift: '1h'
-        filterByTraceID: true
-        filterBySpanID: true
-      tracesToMetrics:
-        datasourceUid: 'grafana_prometheus'
-        # spanStartTimeShift: '-1h'
-        # spanEndTimeShift: '1h'
-      serviceMap:
-        datasourceUid: 'grafana_prometheus'
-      nodeGraph:
-        enabled: true
-      search:
-        hide: false
-      traceQuery:
-        timeShiftEnabled: true
-        # spanStartTimeShift: '-1h'
-        # spanEndTimeShift: '1h'
-      streamingEnabled:
-        search: true
-  - name: Jaeger
-    type: jaeger
-    access: proxy
-    orgId: 1
-    uid: grafana_jaeger
-    url: ${RAILWAY_JAEGER_URL}
-    basicAuth: false
-    basicAuthUser:
-    withCredentials:
-    isDefault: false
-    jsonData:
-      tracesToLogsV2:
-        datasourceUid: 'grafana_loki'
         filterByTraceID: true
         filterBySpanID: true
       tracesToMetrics:
@@ -97,16 +55,46 @@ datasources:
         timeShiftEnabled: true
       streamingEnabled:
         search: true
-  - name: Zipkin
-    type: zipkin
-    access: proxy
-    orgId: 1
-    uid: grafana_zipkin
-    url: ${RAILWAY_ZIPKIN_URL}
-    user:
-    database:
-    basicAuth: false
-    basicAuthUser:
-    withCredentials:
-    isDefault: false
+
+
+  # These two service have the same function with Tempo, no need to use all three.
+  # - name: Jaeger
+  #   type: jaeger
+  #   access: proxy
+  #   orgId: 1
+  #   uid: grafana_jaeger
+  #   url: ${RAILWAY_JAEGER_URL}
+  #   basicAuth: false
+  #   basicAuthUser:
+  #   withCredentials:
+  #   isDefault: false
+  #   jsonData:
+  #     tracesToLogsV2:
+  #       datasourceUid: 'grafana_loki'
+  #       filterByTraceID: true
+  #       filterBySpanID: true
+  #     tracesToMetrics:
+  #       datasourceUid: 'grafana_prometheus'
+  #     serviceMap:
+  #       datasourceUid: 'grafana_prometheus'
+  #     nodeGraph:
+  #       enabled: true
+  #     search:
+  #       hide: false
+  #     traceQuery:
+  #       timeShiftEnabled: true
+  #     streamingEnabled:
+  #       search: true
+  # - name: Zipkin
+  #   type: zipkin
+  #   access: proxy
+  #   orgId: 1
+  #   uid: grafana_zipkin
+  #   url: ${RAILWAY_ZIPKIN_URL}
+  #   user:
+  #   database:
+  #   basicAuth: false
+  #   basicAuthUser:
+  #   withCredentials:
+  #   isDefault: false
     
