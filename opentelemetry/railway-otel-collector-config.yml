@@ -10,6 +10,7 @@ receivers:
             - https://*.slatecast.io
             - https://*.slatecast.co
             - https://*.ginkgoo.dev
+            - https://*.jasper.dev
           allowed_headers: 
             - "*"
           max_age: 7200      
