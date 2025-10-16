@@ -49,7 +49,7 @@ metrics_generator:
     path: /var/tempo/generator/wal
     remote_write:
       # - url: "${RAILWAY_PROMETHEUS_ENDPOINT:-http://prometheus:9090/api/v1/write}"
-      - url: "http://balanced-upliftment.railway.internal"
+      - url: "http://balanced-upliftment.railway.internal:9090/api/v1/write"
         send_exemplars: true
   traces_storage:
     path: /var/tempo/generator/traces
