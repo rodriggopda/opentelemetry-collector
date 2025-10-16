@@ -31,11 +31,13 @@ exporters:
 
   otlphttp/loki:
     endpoint: "${env:RAILWAY_LOKI_ENDPOINT}" # http://<loki-addr>:3100/otlp
+    preferred_ip_version: ip4
 
   otlp/tempo:
     endpoint: "${env:RAILWAY_TEMPO_ENDPOINT}" # <tempo-addr>:4318
     tls:
       insecure: true
+    preferred_ip_version: ip4
 
   # These two service have the same function with Tempo, no need to use all three.
   # zipkin:
